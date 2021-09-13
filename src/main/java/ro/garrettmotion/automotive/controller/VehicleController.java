@@ -1,6 +1,5 @@
 package ro.garrettmotion.automotive.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -21,14 +20,18 @@ import java.util.List;
 @Controller
 public class VehicleController {
 
-    @Autowired
-    private VehicleService vehicleService;
 
-    @Autowired
-    private VehicleTypeService vehicleTypeService;
+    private final VehicleService vehicleService;
 
-    @Autowired
-    private VehiclePartService vehiclePartService;
+    private final VehicleTypeService vehicleTypeService;
+
+    private final VehiclePartService vehiclePartService;
+
+    public VehicleController(VehicleService vehicleService, VehicleTypeService vehicleTypeService, VehiclePartService vehiclePartService) {
+        this.vehicleService = vehicleService;
+        this.vehicleTypeService = vehicleTypeService;
+        this.vehiclePartService = vehiclePartService;
+    }
 
 
     @GetMapping(value = RestConstants.VEHICLES + RestConstants.ALL, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
