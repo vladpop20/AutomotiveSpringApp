@@ -5,6 +5,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import ro.garrettmotion.automotive.RestConstants;
 import ro.garrettmotion.automotive.entity.Vehicle;
@@ -20,7 +21,6 @@ import java.util.List;
 @Controller
 public class VehicleController {
 
-
     private final VehicleService vehicleService;
 
     private final VehicleTypeService vehicleTypeService;
@@ -34,104 +34,106 @@ public class VehicleController {
     }
 
 
-    @GetMapping(value = RestConstants.VEHICLES + RestConstants.ALL, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+
+//   Retrive all individual record from DB
+    @GetMapping("vehicles/all")
     public ResponseEntity<List<Vehicle>> getAllVehicles() {
         List<Vehicle> listVehicles = vehicleService.listAll();
 
         return new ResponseEntity<List<Vehicle>>(listVehicles, HttpStatus.OK);
     }
 
-    @GetMapping(value = RestConstants.VEHICLETYPES + RestConstants.ALL, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @GetMapping("/vehicletypes/all")
     public ResponseEntity<List<VehicleType>> getAllVehicleType() {
         List<VehicleType> listVehicleTypes = vehicleTypeService.listAll();
 
         return new ResponseEntity<List<VehicleType>>(listVehicleTypes, HttpStatus.OK);
     }
 
-    @GetMapping(value = RestConstants.VEHICLEPARTS + RestConstants.ALL, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @GetMapping("/vehicleparts/all")
     public ResponseEntity<List<VehiclePart>> getAllVehicleParts() {
         List<VehiclePart> listVehicleParts = vehiclePartService.listAll();
 
         return new ResponseEntity<List<VehiclePart>>(listVehicleParts, HttpStatus.OK);
     }
 
-//    @RequestMapping("/all")
-//    public String viewHomePage(Model model) {
-//        List<Product> listProducts = service.listAll();
-//        model.addAttribute("listProducts", listProducts);
-//
-//        return "index";
-//    }
-//
-//    @RequestMapping("/all")
-//    public String viewHomePage(Model model) {
-//        List<Product> listProducts = service.listAll();
-//        model.addAttribute("listProducts", listProducts);
-//
-//        return "index";
-//    }
-//
-//    @RequestMapping("/all")
-//    public String viewHomePage(Model model) {
-//        List<Product> listProducts = service.listAll();
-//        model.addAttribute("listProducts", listProducts);
-//
-//        return "index";
-//    }
-//
-//    @RequestMapping("/all")
-//    public String viewHomePage(Model model) {
-//        List<Product> listProducts = service.listAll();
-//        model.addAttribute("listProducts", listProducts);
-//
-//        return "index";
-//    }
-//
-//    @RequestMapping("/all")
-//    public String viewHomePage(Model model) {
-//        List<Product> listProducts = service.listAll();
-//        model.addAttribute("listProducts", listProducts);
-//
-//        return "index";
-//    }
-//
-//    @RequestMapping("/all")
-//    public String viewHomePage(Model model) {
-//        List<Product> listProducts = service.listAll();
-//        model.addAttribute("listProducts", listProducts);
-//
-//        return "index";
-//    }
-//
-//    @RequestMapping("/all")
-//    public String viewHomePage(Model model) {
-//        List<Product> listProducts = service.listAll();
-//        model.addAttribute("listProducts", listProducts);
-//
-//        return "index";
-//    }
-//
-//    @RequestMapping("/all")
-//    public String viewHomePage(Model model) {
-//        List<Product> listProducts = service.listAll();
-//        model.addAttribute("listProducts", listProducts);
-//
-//        return "index";
-//    }
-//
-//    @RequestMapping("/all")
-//    public String viewHomePage(Model model) {
-//        List<Product> listProducts = service.listAll();
-//        model.addAttribute("listProducts", listProducts);
-//
-//        return "index";
-//    }
-//
-//    @RequestMapping("/all")
-//    public String viewHomePage(Model model) {
-//        List<Product> listProducts = service.listAll();
-//        model.addAttribute("listProducts", listProducts);
-//
-//        return "index";
-//    }
+
+
+//   Creates new records on DB
+    @GetMapping("/vehicles/add")
+    public String addVehicle(Vehicle vehicle) {
+        vehicleService.save(vehicle);
+
+        return "redirect:/vehicles/all";
+    }
+
+    @GetMapping("/vehicletypes/add")
+    public String addVehicleType(VehicleType vehicleType) {
+        vehicleTypeService.save(vehicleType);
+
+        return "redirect:/vehicletypes/all";
+    }
+
+    @GetMapping("/vehicleparts/add")
+    public String addVehiclePart(VehiclePart vehiclePart) {
+        vehiclePartService.save(vehiclePart);
+
+        return "redirect:/vehicleparts/all";
+    }
+
+
+
+//  Updates one record at a time from DB
+    @GetMapping("/vehicles/update/{vehicleId}")
+    public String updateVehicle(@PathVariable(name = "VIN") String vehicleId) {
+
+        Vehicle vehicle = vehicleService.get(vehicleId);
+
+        return "redirect:/vehicles/all";
+    }
+
+    @GetMapping("/vehicles/update/{vehicleTypeId}")
+    public String updateVehicleType(@PathVariable(name = "ID") int vehicleTypeId) {
+
+        VehicleType vehicleType = vehicleTypeService.get(vehicleTypeId);
+
+        return "redirect:/vehicletypes/all";
+    }
+
+    @GetMapping("/vehicles/update/{vehiclePartId}")
+    public String updateVehiclePart(@PathVariable(name = "ID") int vehiclePartId) {
+
+        VehiclePart vehiclePart = vehiclePartService.get(vehiclePartId);
+
+        return "redirect:/vehicleparts/all";
+    }
+
+
+
+//  Deletes one record at a time from DB
+    @GetMapping("/vehicles/delete/{vehicleId}")
+    public String deleteVehicle(@PathVariable(name = "VIN") String vehicleId) {
+
+        vehicleService.delete(vehicleId);
+
+        return "redirect:/vehicles/all";
+    }
+
+    @GetMapping("/vehicles/update/{vehicleTypeId}")
+    public String deleteVehicleType(@PathVariable(name = "ID") int vehicleTypeId) {
+
+        vehicleTypeService.delete(vehicleTypeId);
+
+        return "redirect:/vehicletypes/all";
+    }
+
+    @GetMapping("/vehicles/update/{vehiclePartId}")
+    public String deleteVehiclePart(@PathVariable(name = "ID") int vehiclePartId) {
+
+        vehiclePartService.delete(vehiclePartId);
+
+        return "redirect:/vehicleparts/all";
+    }
+
+
 }
