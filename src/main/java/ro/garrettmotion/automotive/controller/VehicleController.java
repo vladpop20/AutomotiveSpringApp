@@ -1,12 +1,11 @@
 package ro.garrettmotion.automotive.controller;
 
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import ro.garrettmotion.automotive.RestConstants;
 import ro.garrettmotion.automotive.entity.Vehicle;
 import ro.garrettmotion.automotive.entity.VehiclePart;
@@ -60,21 +59,21 @@ public class VehicleController {
 
 
 //   Creates new records on DB
-    @GetMapping("/vehicles/add")
+    @PostMapping("/vehicles/add")
     public String addVehicle(Vehicle vehicle) {
         vehicleService.save(vehicle);
 
         return "redirect:/vehicles/all";
     }
 
-    @GetMapping("/vehicletypes/add")
+    @PostMapping("/vehicletypes/add")
     public String addVehicleType(VehicleType vehicleType) {
         vehicleTypeService.save(vehicleType);
 
         return "redirect:/vehicletypes/all";
     }
 
-    @GetMapping("/vehicleparts/add")
+    @PostMapping("/vehicleparts/add")
     public String addVehiclePart(VehiclePart vehiclePart) {
         vehiclePartService.save(vehiclePart);
 
@@ -84,7 +83,7 @@ public class VehicleController {
 
 
 //  Updates one record at a time from DB
-    @GetMapping("/vehicles/update/{vehicleId}")
+    @PutMapping("/vehicles/update/{vehicleId}")
     public String updateVehicle(@PathVariable(name = "VIN") String vehicleId) {
 
         Vehicle vehicle = vehicleService.get(vehicleId);
@@ -92,7 +91,7 @@ public class VehicleController {
         return "redirect:/vehicles/all";
     }
 
-    @GetMapping("/vehicles/update/{vehicleTypeId}")
+    @PutMapping("/vehicletypes/update/{vehicleTypeId}")
     public String updateVehicleType(@PathVariable(name = "ID") int vehicleTypeId) {
 
         VehicleType vehicleType = vehicleTypeService.get(vehicleTypeId);
@@ -100,7 +99,7 @@ public class VehicleController {
         return "redirect:/vehicletypes/all";
     }
 
-    @GetMapping("/vehicles/update/{vehiclePartId}")
+    @PutMapping("/vehicleparts/update/{vehiclePartId}")
     public String updateVehiclePart(@PathVariable(name = "ID") int vehiclePartId) {
 
         VehiclePart vehiclePart = vehiclePartService.get(vehiclePartId);
@@ -111,7 +110,7 @@ public class VehicleController {
 
 
 //  Deletes one record at a time from DB
-    @GetMapping("/vehicles/delete/{vehicleId}")
+    @DeleteMapping("/vehicles/delete/{vehicleId}")
     public String deleteVehicle(@PathVariable(name = "VIN") String vehicleId) {
 
         vehicleService.delete(vehicleId);
@@ -119,7 +118,7 @@ public class VehicleController {
         return "redirect:/vehicles/all";
     }
 
-    @GetMapping("/vehicles/update/{vehicleTypeId}")
+    @DeleteMapping("/vehicletypes/delete/{vehicleTypeId}")
     public String deleteVehicleType(@PathVariable(name = "ID") int vehicleTypeId) {
 
         vehicleTypeService.delete(vehicleTypeId);
@@ -127,7 +126,7 @@ public class VehicleController {
         return "redirect:/vehicletypes/all";
     }
 
-    @GetMapping("/vehicles/update/{vehiclePartId}")
+    @DeleteMapping("/vehicleparts/delete/{vehiclePartId}")
     public String deleteVehiclePart(@PathVariable(name = "ID") int vehiclePartId) {
 
         vehiclePartService.delete(vehiclePartId);

@@ -2,7 +2,7 @@ package ro.garrettmotion.automotive.entity;
 
 import javax.persistence.*;
 
-@Table(name = "VehicleParts")
+@Table(name = "vehicle_part")
 @Entity
 public class VehiclePart {
     @Id

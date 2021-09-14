@@ -3,7 +3,7 @@ package ro.garrettmotion.automotive.entity;
 import javax.persistence.*;
 import java.time.LocalDate;
 
-@Table(name = "Vehicles", schema = "dbo")
+@Table(name = "vehicle", schema = "dbo")
 @Entity
 public class Vehicle {
     @Id
