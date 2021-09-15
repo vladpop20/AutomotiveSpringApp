@@ -20,8 +20,9 @@ public class VehicleTypeService {
         return repo.findAll();
     }
 
-    public void save(VehicleType product) {
+    public VehicleType save(VehicleType product) {
         repo.save(product);
+        return product;
     }
 
     public VehicleType get(Integer id) {

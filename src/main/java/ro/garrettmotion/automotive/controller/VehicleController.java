@@ -105,21 +105,28 @@ public class VehicleController {
         vehicle.setPlateNumber(vehicleDetails.getPlateNumber());
         vehicle.setVehicleType(vehicleDetails.getVehicleType());
 
-        return new ResponseEntity<Vehicle>(vehicleService.save(vehicle), HttpStatus.OK);
+        return new ResponseEntity<>(vehicleService.save(vehicle), HttpStatus.OK);
     }
 
     @PutMapping("/vehicletypes/update/{vehicleTypeId}")
-    public ResponseEntity<VehicleType> updateVehicleType(@PathVariable(name = "vehicleTypeId") int vehicleTypeId) {
+    public ResponseEntity<VehicleType> updateVehicleType(@PathVariable(name = "vehicleTypeId") int vehicleTypeId, @Valid @RequestBody VehicleType vehicleTypeDetails) {
         VehicleType vehicleType = vehicleTypeService.get(vehicleTypeId);
 
-        return new ResponseEntity<VehicleType>(vehicleTypeService.save(vehicleType), HttpStatus.OK);
+        vehicleType.setId(vehicleTypeDetails.getId());
+        vehicleType.setName(vehicleTypeDetails.getName());
+
+        return new ResponseEntity<>(vehicleTypeService.save(vehicleType), HttpStatus.OK);
     }
 
     @PutMapping("/vehicleparts/update/{vehiclePartId}")
-    public ResponseEntity<VehiclePart> updateVehiclePart(@PathVariable(name = "vehiclePartId") int vehiclePartId) {
+    public ResponseEntity<VehiclePart> updateVehiclePart(@PathVariable(name = "vehiclePartId") int vehiclePartId, @Valid @RequestBody VehiclePart vehiclePartDetails) {
         VehiclePart vehiclePart = vehiclePartService.get(vehiclePartId);
 
-        return new ResponseEntity<VehiclePart>(vehiclePartService.save(vehiclePart), HttpStatus.OK);
+        vehiclePart.setId(vehiclePartDetails.getId());
+        vehiclePart.setName(vehiclePartDetails.getName());
+        vehiclePart.setVehicleType(vehiclePartDetails.getVehicleType());
+
+        return new ResponseEntity<>(vehiclePartService.save(vehiclePart), HttpStatus.OK);
     }
 
 

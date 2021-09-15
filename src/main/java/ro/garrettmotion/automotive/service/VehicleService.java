@@ -26,10 +26,6 @@ public class VehicleService {
         return product;
     }
 
-//    public void save(Vehicle product) {
-//        repo.save(product);
-//    }
-
     public Vehicle get(String id) {
         return repo.findById(id).get();
     }

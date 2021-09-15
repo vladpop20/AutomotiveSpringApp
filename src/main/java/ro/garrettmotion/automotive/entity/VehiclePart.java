@@ -1,7 +1,5 @@
 package ro.garrettmotion.automotive.entity;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import javax.persistence.*;
 
 @Table(name = "vehicle_part")
@@ -18,21 +16,6 @@ public class VehiclePart {
     @ManyToOne
     @JoinColumn(name = "vehicle_type_id")
     private VehicleType vehicleType;
-
-    public VehiclePart(String name, VehicleType vehicleType) {
-        this.name = name;
-        this.vehicleType = vehicleType;
-    }
-
-    public VehiclePart() {
-
-    }
-
-    @JsonProperty("vehicleType")
-    private void unpackNested(Integer vehicleType) {
-        this.vehicleType = new VehicleType();
-        this.vehicleType.setId(vehicleType);
-    }
 
     public VehicleType getVehicleType() {
         return vehicleType;

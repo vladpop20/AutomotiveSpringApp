@@ -23,8 +23,9 @@ public class VehiclePartService {
         return repo.findAll();
     }
 
-    public void save(VehiclePart product) {
+    public VehiclePart save(VehiclePart product) {
         repo.save(product);
+        return product;
     }
 
     public VehiclePart get(Integer id) {
