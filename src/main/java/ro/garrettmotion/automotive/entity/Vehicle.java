@@ -20,6 +20,17 @@ public class Vehicle {
     @Column(name = "DateOfRegistration")
     private LocalDate dateOfRegistration;
 
+    public Vehicle(String id, String plateNumber, LocalDate dateOfRegistration, VehicleType vehicleType) {
+        this.id = id;
+        this.plateNumber = plateNumber;
+        this.dateOfRegistration = dateOfRegistration;
+        this.vehicleType = vehicleType;
+    }
+
+    public Vehicle() {
+
+    }
+
     public LocalDate getDateOfRegistration() {
         return dateOfRegistration;
     }

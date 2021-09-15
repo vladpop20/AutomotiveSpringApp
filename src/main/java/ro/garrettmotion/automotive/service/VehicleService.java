@@ -11,7 +11,6 @@ import ro.garrettmotion.automotive.repository.VehicleRepository;
 @Transactional
 public class VehicleService {
 
-
     private final VehicleRepository repo;
 
     public VehicleService(VehicleRepository repo) {
@@ -22,6 +21,10 @@ public class VehicleService {
         return repo.findAll();
     }
 
+//    public Vehicle save(Vehicle product) {
+//        repo.save(product);
+//        return product;
+//    }
     public void save(Vehicle product) {
         repo.save(product);
     }

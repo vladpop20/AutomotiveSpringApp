@@ -1,5 +1,8 @@
 package ro.garrettmotion.automotive.entity;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.persistence.*;
 
 @Table(name = "vehicle_type")
@@ -12,6 +15,16 @@ public class VehicleType {
 
     @Column(name = "name", length = 45)
     private String name;
+
+    @JsonCreator
+    public VehicleType(@JsonProperty("id") Integer id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
+    public VehicleType() {
+
+    }
 
     public String getName() {
         return name;
