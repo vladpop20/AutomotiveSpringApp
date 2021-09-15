@@ -1,6 +1,5 @@
 package ro.garrettmotion.automotive.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,8 +11,10 @@ import ro.garrettmotion.automotive.service.VehiclePartService;
 import ro.garrettmotion.automotive.service.VehicleService;
 import ro.garrettmotion.automotive.service.VehicleTypeService;
 
+
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/")
@@ -80,14 +81,14 @@ public class VehicleController {
     }
 
     @PostMapping("/vehicletypes/add")
-    public String addVehicleType(@Valid @RequestBody VehicleType vehicleType) {
+    public String createVehicleType(@Valid @RequestBody VehicleType vehicleType) {
         vehicleTypeService.save(vehicleType);
 
         return "redirect:/vehicletypes/all";
     }
 
     @PostMapping("/vehicleparts/add")
-    public String addVehiclePart(@Valid @RequestBody VehiclePart vehiclePart) {
+    public String createVehiclePart(@Valid @RequestBody VehiclePart vehiclePart) {
         vehiclePartService.save(vehiclePart);
 
         return "redirect:/vehicleparts/all";
@@ -97,27 +98,28 @@ public class VehicleController {
 
 //  Updates one record at a time from DB
     @PutMapping("/vehicles/update/{vehicleId}")
-    public String updateVehicle(@PathVariable(name = "VIN") String vehicleId) {
-
+    public ResponseEntity<Vehicle> updateVehicle(@PathVariable(name = "vehicleId") String vehicleId, @Valid @RequestBody Vehicle vehicleDetails) {
         Vehicle vehicle = vehicleService.get(vehicleId);
 
-        return "redirect:/vehicles/all";
+        vehicle.setDateOfRegistration(vehicleDetails.getDateOfRegistration());
+        vehicle.setPlateNumber(vehicleDetails.getPlateNumber());
+        vehicle.setVehicleType(vehicleDetails.getVehicleType());
+
+        return new ResponseEntity<Vehicle>(vehicleService.save(vehicle), HttpStatus.OK);
     }
 
     @PutMapping("/vehicletypes/update/{vehicleTypeId}")
-    public String updateVehicleType(@PathVariable(name = "ID") int vehicleTypeId) {
-
+    public ResponseEntity<VehicleType> updateVehicleType(@PathVariable(name = "vehicleTypeId") int vehicleTypeId) {
         VehicleType vehicleType = vehicleTypeService.get(vehicleTypeId);
 
-        return "redirect:/vehicletypes/all";
+        return new ResponseEntity<VehicleType>(vehicleTypeService.save(vehicleType), HttpStatus.OK);
     }
 
     @PutMapping("/vehicleparts/update/{vehiclePartId}")
-    public String updateVehiclePart(@PathVariable(name = "ID") int vehiclePartId) {
-
+    public ResponseEntity<VehiclePart> updateVehiclePart(@PathVariable(name = "vehiclePartId") int vehiclePartId) {
         VehiclePart vehiclePart = vehiclePartService.get(vehiclePartId);
 
-        return "redirect:/vehicleparts/all";
+        return new ResponseEntity<VehiclePart>(vehiclePartService.save(vehiclePart), HttpStatus.OK);
     }
 
 

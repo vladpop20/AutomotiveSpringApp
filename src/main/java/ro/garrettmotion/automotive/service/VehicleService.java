@@ -21,13 +21,14 @@ public class VehicleService {
         return repo.findAll();
     }
 
-//    public Vehicle save(Vehicle product) {
-//        repo.save(product);
-//        return product;
-//    }
-    public void save(Vehicle product) {
+    public Vehicle save(Vehicle product) {
         repo.save(product);
+        return product;
     }
+
+//    public void save(Vehicle product) {
+//        repo.save(product);
+//    }
 
     public Vehicle get(String id) {
         return repo.findById(id).get();
