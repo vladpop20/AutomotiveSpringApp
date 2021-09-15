@@ -1,5 +1,8 @@
 package ro.garrettmotion.automotive.entity;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 
@@ -29,6 +32,12 @@ public class Vehicle {
 
     public Vehicle() {
 
+    }
+
+    @JsonProperty("vehicleType")
+    private void unpackNested(Integer vehicleType) {
+        this.vehicleType = new VehicleType();
+        this.vehicleType.setId(vehicleType);
     }
 
     public LocalDate getDateOfRegistration() {

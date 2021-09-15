@@ -76,20 +76,18 @@ public class VehicleController {
     public String createVehicle(@Valid @RequestBody Vehicle vehicle) {
         vehicleService.save(vehicle);
 
-        return "redirect:/vehicle/all";
+        return "redirect:/vehicles/all";
     }
 
-
-
     @PostMapping("/vehicletypes/add")
-    public String addVehicleType(VehicleType vehicleType) {
+    public String addVehicleType(@Valid @RequestBody VehicleType vehicleType) {
         vehicleTypeService.save(vehicleType);
 
         return "redirect:/vehicletypes/all";
     }
 
     @PostMapping("/vehicleparts/add")
-    public String addVehiclePart(VehiclePart vehiclePart) {
+    public String addVehiclePart(@Valid @RequestBody VehiclePart vehiclePart) {
         vehiclePartService.save(vehiclePart);
 
         return "redirect:/vehicleparts/all";

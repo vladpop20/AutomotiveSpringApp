@@ -17,8 +17,7 @@ public class VehicleType {
     private String name;
 
     @JsonCreator
-    public VehicleType(@JsonProperty("id") Integer id, String name) {
-        this.id = id;
+    public VehicleType(String name) {
         this.name = name;
     }
 
