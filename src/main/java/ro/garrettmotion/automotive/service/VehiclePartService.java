@@ -11,8 +11,6 @@ import java.util.List;
 @Service
 @Transactional
 public class VehiclePartService {
-
-
     private  final VehiclePartRepository repo;
 
     public VehiclePartService(VehiclePartRepository repo) {

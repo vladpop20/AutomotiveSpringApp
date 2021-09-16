@@ -19,6 +19,16 @@ public class VehiclePart {
     @JoinColumn(name = "vehicle_type_id")
     private VehicleType vehicleType;
 
+    public VehiclePart(Integer id, String name, VehicleType vehicleType) {
+        this.id = id;
+        this.name = name;
+        this.vehicleType = vehicleType;
+    }
+
+    public VehiclePart() {
+
+    }
+
     @JsonProperty("vehicleType")
     private void unpackNested(Integer vehicleType) {
         this.vehicleType = new VehicleType();

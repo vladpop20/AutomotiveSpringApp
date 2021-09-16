@@ -1,7 +1,6 @@
 package ro.garrettmotion.automotive.entity;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 import javax.persistence.*;
 import java.time.LocalDate;

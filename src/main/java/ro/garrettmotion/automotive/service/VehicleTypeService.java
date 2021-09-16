@@ -1,6 +1,5 @@
 package ro.garrettmotion.automotive.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -12,9 +11,11 @@ import java.util.List;
 @Service
 @Transactional
 public class VehicleTypeService {
+    private final VehicleTypeRepository repo;
 
-    @Autowired
-    private VehicleTypeRepository repo;
+    public VehicleTypeService(VehicleTypeRepository repo) {
+        this.repo = repo;
+    }
 
     public List<VehicleType> listAll() {
         return repo.findAll();

@@ -10,7 +10,6 @@ import ro.garrettmotion.automotive.repository.VehicleRepository;
 @Service
 @Transactional
 public class VehicleService {
-
     private final VehicleRepository repo;
 
     public VehicleService(VehicleRepository repo) {
