@@ -3,7 +3,6 @@ package ro.garrettmotion.automotive.controller;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import ro.garrettmotion.automotive.RestConstants;
 import ro.garrettmotion.automotive.entity.Vehicle;
 import ro.garrettmotion.automotive.entity.VehiclePart;
 import ro.garrettmotion.automotive.entity.VehicleType;
@@ -14,7 +13,6 @@ import ro.garrettmotion.automotive.service.VehicleTypeService;
 
 import javax.validation.Valid;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/")
@@ -32,8 +30,7 @@ public class VehicleController {
         this.vehiclePartService = vehiclePartService;
     }
 
-
-
+//----------------------------------------------------------------------------------------------------------------------
 //   Retrive all individual record from DB
     @GetMapping("vehicles/all")
     public ResponseEntity<List<Vehicle>> getAllVehicles() {
@@ -56,46 +53,35 @@ public class VehicleController {
         return new ResponseEntity<>(listVehicleParts, HttpStatus.OK);
     }
 
-
-
+//----------------------------------------------------------------------------------------------------------------------
 //   Creates new records on DB
-
-//    @PostMapping("/vehicles/add")
-//    public ResponseEntity<Vehicle> createVehicle(@Valid @RequestBody Vehicle vehicle) {
-//        try {
-//            Vehicle _vehicle = vehicleService
-//                    .save(new Vehicle(vehicle.getId(), vehicle.getPlateNumber(), vehicle.getDateOfRegistration(), vehicle.getVehicleType()));
-//            return new ResponseEntity<>(_vehicle, HttpStatus.CREATED);
-//        } catch (Exception e) {
-//            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-//        }
-//
-//        //return vehicleService.save(vehicle);
-//    }
-
     @PostMapping("/vehicles/add")
-    public String createVehicle(@Valid @RequestBody Vehicle vehicle) {
-        vehicleService.save(vehicle);
-
-        return "redirect:/vehicles/all";
+    public ResponseEntity<Vehicle> createVehicle(@Valid @RequestBody Vehicle vehicle) {
+        try {
+            Vehicle _vehicle = vehicleService
+                    .save(new Vehicle(vehicle.getId(), vehicle.getPlateNumber(), vehicle.getDateOfRegistration(), vehicle.getVehicleType()));
+            return new ResponseEntity<>(_vehicle, HttpStatus.CREATED);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
-    @PostMapping("/vehicletypes/add")
-    public String createVehicleType(@Valid @RequestBody VehicleType vehicleType) {
-        vehicleTypeService.save(vehicleType);
+//    @PostMapping("/vehicles/add")
+//    public Vehicle createVehicle(@Valid @RequestBody Vehicle vehicle) {
+//        return vehicleService.save(vehicle);
+//    }
 
-        return "redirect:/vehicletypes/all";
+    @PostMapping("/vehicletypes/add")
+    public VehicleType createVehicleType(@Valid @RequestBody VehicleType vehicleType) {
+        return vehicleTypeService.save(vehicleType);
     }
 
     @PostMapping("/vehicleparts/add")
-    public String createVehiclePart(@Valid @RequestBody VehiclePart vehiclePart) {
-        vehiclePartService.save(vehiclePart);
-
-        return "redirect:/vehicleparts/all";
+    public VehiclePart createVehiclePart(@Valid @RequestBody VehiclePart vehiclePart) {
+        return vehiclePartService.save(vehiclePart);
     }
 
-
-
+//----------------------------------------------------------------------------------------------------------------------
 //  Updates one record at a time from DB
     @PutMapping("/vehicles/update/{vehicleId}")
     public ResponseEntity<Vehicle> updateVehicle(@PathVariable(name = "vehicleId") String vehicleId, @Valid @RequestBody Vehicle vehicleDetails) {
@@ -106,13 +92,14 @@ public class VehicleController {
         vehicle.setVehicleType(vehicleDetails.getVehicleType());
 
         return new ResponseEntity<>(vehicleService.save(vehicle), HttpStatus.OK);
+
+//        return ResponseEntity.ok(vehicleService.save(vehicle));
     }
 
     @PutMapping("/vehicletypes/update/{vehicleTypeId}")
     public ResponseEntity<VehicleType> updateVehicleType(@PathVariable(name = "vehicleTypeId") int vehicleTypeId, @Valid @RequestBody VehicleType vehicleTypeDetails) {
         VehicleType vehicleType = vehicleTypeService.get(vehicleTypeId);
 
-        vehicleType.setId(vehicleTypeDetails.getId());
         vehicleType.setName(vehicleTypeDetails.getName());
 
         return new ResponseEntity<>(vehicleTypeService.save(vehicleType), HttpStatus.OK);
@@ -122,38 +109,42 @@ public class VehicleController {
     public ResponseEntity<VehiclePart> updateVehiclePart(@PathVariable(name = "vehiclePartId") int vehiclePartId, @Valid @RequestBody VehiclePart vehiclePartDetails) {
         VehiclePart vehiclePart = vehiclePartService.get(vehiclePartId);
 
-        vehiclePart.setId(vehiclePartDetails.getId());
         vehiclePart.setName(vehiclePartDetails.getName());
         vehiclePart.setVehicleType(vehiclePartDetails.getVehicleType());
 
         return new ResponseEntity<>(vehiclePartService.save(vehiclePart), HttpStatus.OK);
     }
 
-
-
+//----------------------------------------------------------------------------------------------------------------------
 //  Deletes one record at a time from DB
     @DeleteMapping("/vehicles/delete/{vehicleId}")
-    public String deleteVehicle(@PathVariable(name = "VIN") String vehicleId) {
-
-        vehicleService.delete(vehicleId);
-
-        return "redirect:/vehicles/all";
+    public ResponseEntity<HttpStatus> deleteVehicle(@PathVariable(name = "vehicleId") String vehicleId) {
+        try {
+            vehicleService.delete(vehicleId);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @DeleteMapping("/vehicletypes/delete/{vehicleTypeId}")
-    public String deleteVehicleType(@PathVariable(name = "ID") int vehicleTypeId) {
-
-        vehicleTypeService.delete(vehicleTypeId);
-
-        return "redirect:/vehicletypes/all";
+    public ResponseEntity<HttpStatus> deleteVehicleType(@PathVariable(name = "vehicleTypeId") int vehicleTypeId) {
+        try {
+            vehicleTypeService.delete(vehicleTypeId);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @DeleteMapping("/vehicleparts/delete/{vehiclePartId}")
-    public String deleteVehiclePart(@PathVariable(name = "ID") int vehiclePartId) {
-
-        vehiclePartService.delete(vehiclePartId);
-
-        return "redirect:/vehicleparts/all";
+    public ResponseEntity<HttpStatus> deleteVehiclePart(@PathVariable(name = "vehiclePartId") int vehiclePartId) {
+        try {
+            vehiclePartService.delete(vehiclePartId);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
 
