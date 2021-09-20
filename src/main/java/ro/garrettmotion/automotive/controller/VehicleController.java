@@ -6,12 +6,14 @@ import org.springframework.web.bind.annotation.*;
 import ro.garrettmotion.automotive.entity.Vehicle;
 import ro.garrettmotion.automotive.entity.VehiclePart;
 import ro.garrettmotion.automotive.entity.VehicleType;
+import ro.garrettmotion.automotive.exception.VehicleNotFoundException;
 import ro.garrettmotion.automotive.service.VehiclePartService;
 import ro.garrettmotion.automotive.service.VehicleService;
 import ro.garrettmotion.automotive.service.VehicleTypeService;
 
 
 import javax.validation.Valid;
+import java.util.Optional.*;
 import java.util.List;
 
 @RestController
@@ -85,6 +87,7 @@ public class VehicleController {
 //  Updates one record at a time from DB
     @PutMapping("/vehicles/update/{vehicleId}")
     public ResponseEntity<Vehicle> updateVehicle(@PathVariable(name = "vehicleId") String vehicleId, @Valid @RequestBody Vehicle vehicleDetails) {
+//        Vehicle vehicle = vehicleService.get(vehicleId).orElseThrow(VehicleNotFoundException);
         Vehicle vehicle = vehicleService.get(vehicleId);
 
         vehicle.setDateOfRegistration(vehicleDetails.getDateOfRegistration());
