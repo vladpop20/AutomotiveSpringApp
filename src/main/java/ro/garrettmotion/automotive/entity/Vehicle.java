@@ -5,22 +5,22 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.persistence.*;
 import java.time.LocalDate;
 
-@Table(name = "vehicle", schema = "dbo")
+@Table(name = "vehicle")
 @Entity
 public class Vehicle {
     @Id
-    @Column(name = "VIN", nullable = false, length = 17)
+    @Column(name = "vin", nullable = false, length = 17)
     private String id;
 
-    @ManyToOne
-    @JoinColumn(name = "VehicleType_ID")
-    private VehicleType vehicleType;
+    @Column(name = "date_of_registration")
+    private LocalDate dateOfRegistration;
 
-    @Column(name = "PlateNumber", nullable = false, length = 10)
+    @Column(name = "plate_number", nullable = false, length = 10)
     private String plateNumber;
 
-    @Column(name = "DateOfRegistration")
-    private LocalDate dateOfRegistration;
+    @ManyToOne
+    @JoinColumn(name = "vehicle_type_id")
+    private VehicleType vehicleType;
 
     public Vehicle(String id, String plateNumber, LocalDate dateOfRegistration, VehicleType vehicleType) {
         this.id = id;
@@ -39,12 +39,12 @@ public class Vehicle {
         this.vehicleType.setId(vehicleType);
     }
 
-    public LocalDate getDateOfRegistration() {
-        return dateOfRegistration;
+    public VehicleType getVehicleType() {
+        return vehicleType;
     }
 
-    public void setDateOfRegistration(LocalDate dateOfRegistration) {
-        this.dateOfRegistration = dateOfRegistration;
+    public void setVehicleType(VehicleType vehicleType) {
+        this.vehicleType = vehicleType;
     }
 
     public String getPlateNumber() {
@@ -55,12 +55,12 @@ public class Vehicle {
         this.plateNumber = plateNumber;
     }
 
-    public VehicleType getVehicleType() {
-        return vehicleType;
+    public LocalDate getDateOfRegistration() {
+        return dateOfRegistration;
     }
 
-    public void setVehicleType(VehicleType vehicleType) {
-        this.vehicleType = vehicleType;
+    public void setDateOfRegistration(LocalDate dateOfRegistration) {
+        this.dateOfRegistration = dateOfRegistration;
     }
 
     public String getId() {

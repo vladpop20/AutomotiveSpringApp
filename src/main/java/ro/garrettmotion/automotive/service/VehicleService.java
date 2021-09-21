@@ -10,26 +10,26 @@ import ro.garrettmotion.automotive.repository.VehicleRepository;
 @Service
 @Transactional
 public class VehicleService {
-    private final VehicleRepository repo;
+    private final VehicleRepository vehicleRepository;
 
-    public VehicleService(VehicleRepository repo) {
-        this.repo = repo;
+    public VehicleService(VehicleRepository vehicleRepository) {
+        this.vehicleRepository = vehicleRepository;
     }
 
     public List<Vehicle> listAll() {
-        return repo.findAll();
+        return vehicleRepository.findAll();
     }
 
     public Vehicle save(Vehicle product) {
-        repo.save(product);
+        vehicleRepository.save(product);
         return product;
     }
 
     public Vehicle get(String id) {
-        return repo.findById(id).get();
+        return vehicleRepository.findById(id).get();
     }
 
     public void delete(String id) {
-        repo.deleteById(id);
+        vehicleRepository.deleteById(id);
     }
 }

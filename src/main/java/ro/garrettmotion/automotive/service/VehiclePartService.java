@@ -11,26 +11,26 @@ import java.util.List;
 @Service
 @Transactional
 public class VehiclePartService {
-    private  final VehiclePartRepository repo;
+    private  final VehiclePartRepository vehiclePartRepository;
 
-    public VehiclePartService(VehiclePartRepository repo) {
-        this.repo = repo;
+    public VehiclePartService(VehiclePartRepository vehiclePartRepository) {
+        this.vehiclePartRepository = vehiclePartRepository;
     }
 
     public List<VehiclePart> listAll() {
-        return repo.findAll();
+        return vehiclePartRepository.findAll();
     }
 
     public VehiclePart save(VehiclePart product) {
-        repo.save(product);
+        vehiclePartRepository.save(product);
         return product;
     }
 
     public VehiclePart get(Integer id) {
-        return repo.findById(id).get();
+        return vehiclePartRepository.findById(id).get();
     }
 
     public void delete(Integer id) {
-        repo.deleteById(id);
+        vehiclePartRepository.deleteById(id);
     }
 }

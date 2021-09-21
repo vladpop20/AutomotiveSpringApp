@@ -9,6 +9,8 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.stereotype.Service;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import ro.garrettmotion.automotive.entity.Vehicle;
@@ -20,37 +22,28 @@ import ro.garrettmotion.automotive.service.VehicleTypeService;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-//@SpringBootTest(classes = AutomotiveApplication.class)
 @RunWith(SpringRunner.class)
-//@DataJpaTest
+//@SpringBootTest(classes = ro.garrettmotion.automotive.AutomotiveApplication.class)
+@DataJpaTest
 public class MyAutomotiveTests {
 
     @Autowired
     private TestEntityManager entityManager;
 
-    @Autowired
-    VehicleService vehicleService;
+    @Autowired()
+    private VehicleService vehicleService;
 
-    @Autowired
-    VehicleTypeService vehicleTypeService;
+    @Autowired()
+    private VehicleTypeService vehicleTypeService;
 
-    @Autowired
-    VehiclePartService vehiclePartService;
+    @Autowired()
+    private VehiclePartService vehiclePartService;
 
-//    private final TestEntityManager entityManager;
+
+//    @Test
+//    public void contextLoad() {
 //
-//    public MyAutomotiveTests(TestEntityManager entityManager) {
-//        this.entityManager = entityManager;
 //    }
-//
-//    public VehicleService vehicleService;
-//    public VehicleTypeService vehicleTypeService;
-//    public VehiclePartService vehiclePartService;
-
-    @Test
-    public void contextLoad() {
-
-    }
 
     @Test
     public void should_find_all_vehicles() {
