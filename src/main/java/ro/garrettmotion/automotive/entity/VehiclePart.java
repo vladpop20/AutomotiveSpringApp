@@ -3,6 +3,7 @@ package ro.garrettmotion.automotive.entity;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Table(name = "vehicle_part")
 @Entity
@@ -19,8 +20,8 @@ public class VehiclePart {
     @JoinColumn(name = "vehicle_type_id")
     private VehicleType vehicleType;
 
-    public VehiclePart(Integer id, String name, VehicleType vehicleType) {
-        this.id = id;
+    public VehiclePart(String name, VehicleType vehicleType) {
+        //this.id = id;
         this.name = name;
         this.vehicleType = vehicleType;
     }
@@ -57,5 +58,27 @@ public class VehiclePart {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof VehiclePart)) return false;
+        VehiclePart that = (VehiclePart) o;
+        return getId().equals(that.getId()) && getName().equals(that.getName()) && getVehicleType().equals(that.getVehicleType());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getName(), getVehicleType());
+    }
+
+    @Override
+    public String toString() {
+        return "VehiclePart{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", vehicleType=" + vehicleType +
+                '}';
     }
 }

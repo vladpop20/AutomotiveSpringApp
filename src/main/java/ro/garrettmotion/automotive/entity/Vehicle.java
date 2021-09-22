@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.Objects;
 
 @Table(name = "vehicle")
 @Entity
@@ -69,5 +70,29 @@ public class Vehicle {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Vehicle)) return false;
+        Vehicle vehicle = (Vehicle) o;
+        return getId().equals(vehicle.getId()) && getDateOfRegistration().equals(vehicle.getDateOfRegistration()) &&
+                getPlateNumber().equals(vehicle.getPlateNumber()) && getVehicleType().equals(vehicle.getVehicleType());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getDateOfRegistration(), getPlateNumber(), getVehicleType());
+    }
+
+    @Override
+    public String toString() {
+        return "Vehicle{" +
+                "id='" + id + '\'' +
+                ", dateOfRegistration=" + dateOfRegistration +
+                ", plateNumber='" + plateNumber + '\'' +
+                ", vehicleType=" + vehicleType +
+                '}';
     }
 }
