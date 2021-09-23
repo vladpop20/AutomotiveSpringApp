@@ -248,7 +248,7 @@ public class MyAutomotiveTests {
         vehiclePartService.delete(mk2.getId());
 
         Iterable<VehiclePart> vehicleParts = vehiclePartService.listAll();
-        assertThat(vehicleParts).hasSize(sizeBeforeAdding + 3).contains(mk1, mk3);
+        assertThat(vehicleParts).hasSize(sizeBeforeAdding + 2).contains(mk1, mk3);
     }
 
 
