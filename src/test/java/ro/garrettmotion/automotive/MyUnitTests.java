@@ -141,7 +141,7 @@ public class MyUnitTests {
     }
 
     @Test
-    public void should_update_vehicle_type_by_id() {
+    public void should_update_vehicle_type_by_id() throws Exception {
         VehicleType firstVehTp = vehicleTypeService.save(new VehicleType("Robots"));
         VehicleType secVehTp = vehicleTypeService.save(new VehicleType("Headphones"));
 
@@ -155,7 +155,7 @@ public class MyUnitTests {
     }
 
     @Test
-    public void should_update_vehicle_part_by_id() {
+    public void should_update_vehicle_part_by_id() throws Exception {
         VehicleType vehicleType = vehicleTypeService.save(new VehicleType("Robots"));
 
         VehiclePart firstVehPt = vehiclePartService.save(new VehiclePart("SunRoof", vehicleType));

@@ -100,7 +100,7 @@ public class VehicleController {
     }
 
     @PutMapping("/vehicletypes/update/{vehicleTypeId}")
-    public ResponseEntity<VehicleType> updateVehicleType(@PathVariable(name = "vehicleTypeId") int vehicleTypeId, @Valid @RequestBody VehicleType vehicleTypeDetails) {
+    public ResponseEntity<VehicleType> updateVehicleType(@PathVariable(name = "vehicleTypeId") int vehicleTypeId, @Valid @RequestBody VehicleType vehicleTypeDetails) throws Exception {
         VehicleType vehicleType = vehicleTypeService.get(vehicleTypeId);
 
         vehicleType.setName(vehicleTypeDetails.getName());
@@ -109,7 +109,7 @@ public class VehicleController {
     }
 
     @PutMapping("/vehicleparts/update/{vehiclePartId}")
-    public ResponseEntity<VehiclePart> updateVehiclePart(@PathVariable(name = "vehiclePartId") int vehiclePartId, @Valid @RequestBody VehiclePart vehiclePartDetails) {
+    public ResponseEntity<VehiclePart> updateVehiclePart(@PathVariable(name = "vehiclePartId") int vehiclePartId, @Valid @RequestBody VehiclePart vehiclePartDetails) throws Exception {
         VehiclePart vehiclePart = vehiclePartService.get(vehiclePartId);
 
         vehiclePart.setName(vehiclePartDetails.getName());

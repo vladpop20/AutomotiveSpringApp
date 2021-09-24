@@ -30,7 +30,7 @@ public class VehicleService {
     public Vehicle get(String id) throws Exception {
         Optional<Vehicle> vehicle = vehicleRepository.findById(id);
         if(!vehicle.isPresent()) {
-            throw new VehicleNotFoundException("Vehicle not found with id: " + id);
+            throw new VehicleNotFoundException("Vehicle not found, with id: " + id);
         }
         return vehicle.get();
     }
