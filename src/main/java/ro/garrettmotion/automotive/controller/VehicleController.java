@@ -86,7 +86,7 @@ public class VehicleController {
 //----------------------------------------------------------------------------------------------------------------------
 //  Updates one record at a time from DB
     @PutMapping("/vehicles/update/{vehicleId}")
-    public ResponseEntity<Vehicle> updateVehicle(@PathVariable(name = "vehicleId") String vehicleId, @Valid @RequestBody Vehicle vehicleDetails) {
+    public ResponseEntity<Vehicle> updateVehicle(@PathVariable(name = "vehicleId") String vehicleId, @Valid @RequestBody Vehicle vehicleDetails) throws Exception {
 //        Vehicle vehicle = vehicleService.get(vehicleId).orElseThrow(VehicleNotFoundException);
         Vehicle vehicle = vehicleService.get(vehicleId);
 

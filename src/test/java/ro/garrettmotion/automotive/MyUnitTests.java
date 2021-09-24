@@ -14,7 +14,6 @@ import ro.garrettmotion.automotive.entity.VehicleType;
 import ro.garrettmotion.automotive.service.VehiclePartService;
 import ro.garrettmotion.automotive.service.VehicleService;
 import ro.garrettmotion.automotive.service.VehicleTypeService;
-import sun.lwawt.macosx.CSystemTray;
 
 import static org.junit.Assert.assertNotNull;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -121,7 +120,7 @@ public class MyUnitTests {
 //-----------------------------------------------------------------------------------------------------------------------------------------
 
     @Test
-    public void should_update_vehicle_by_id() {
+    public void should_update_vehicle_by_id() throws Exception {
         LocalDate dateOfRegistration = LocalDate.of(2004, 3, 13);
         VehicleType vehicleType = vehicleTypeService.save(new VehicleType("Robots"));
 
