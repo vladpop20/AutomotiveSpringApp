@@ -23,8 +23,7 @@ public class VehicleTypeService {
     }
 
     public VehicleType save(VehicleType product) {
-        vehicleTypeRepository.save(product);
-        return product;
+        return vehicleTypeRepository.save(product);
     }
 
     public VehicleType get(Integer id) throws Exception {

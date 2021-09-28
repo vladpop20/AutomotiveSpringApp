@@ -3,6 +3,10 @@ package ro.garrettmotion.automotive;
 import java.time.LocalDate;
 import java.util.List;
 
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.junit.Test;
@@ -11,6 +15,9 @@ import org.springframework.test.context.junit4.SpringRunner;
 import ro.garrettmotion.automotive.entity.Vehicle;
 import ro.garrettmotion.automotive.entity.VehiclePart;
 import ro.garrettmotion.automotive.entity.VehicleType;
+import ro.garrettmotion.automotive.repository.VehiclePartRepository;
+import ro.garrettmotion.automotive.repository.VehicleRepository;
+import ro.garrettmotion.automotive.repository.VehicleTypeRepository;
 import ro.garrettmotion.automotive.service.VehiclePartService;
 import ro.garrettmotion.automotive.service.VehicleService;
 import ro.garrettmotion.automotive.service.VehicleTypeService;
@@ -18,23 +25,35 @@ import ro.garrettmotion.automotive.service.VehicleTypeService;
 import static org.junit.Assert.assertNotNull;
 import static org.assertj.core.api.Assertions.assertThat;
 
-
+//@ExtendWith(MockitoExtension.class)
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = ro.garrettmotion.automotive.AutomotiveApplication.class)
 public class MyUnitTests {
 
-    @Autowired()
+//    @Mock private VehicleRepository vehicleRepository;
+//    private VehicleService vehicleService;
+//
+//    @Mock private VehicleTypeRepository vehicleTypeRepository;
+//    private VehicleTypeService vehicleTypeService;
+//
+//    @Mock private VehiclePartRepository vehiclePartRepository;
+//    private VehiclePartService vehiclePartService;
+//
+//    @BeforeEach
+//    public void setUp()  {
+//        vehicleService = new VehicleService(vehicleRepository);
+//        vehicleTypeService = new VehicleTypeService(vehicleTypeRepository);
+//        vehiclePartService = new VehiclePartService(vehiclePartRepository);
+//    }
+
+    @Autowired
     private VehicleService vehicleService;
 
-    @Autowired()
+    @Autowired
     private VehicleTypeService vehicleTypeService;
 
-    @Autowired()
+    @Autowired
     private VehiclePartService vehiclePartService;
-
-    @Test
-    public void contextLoad() {
-    }
 
     @Test
     public void should_find_all_vehicles() {

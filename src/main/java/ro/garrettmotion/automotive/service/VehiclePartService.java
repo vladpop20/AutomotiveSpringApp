@@ -24,8 +24,7 @@ public class VehiclePartService {
     }
 
     public VehiclePart save(VehiclePart product) {
-        vehiclePartRepository.save(product);
-        return product;
+        return vehiclePartRepository.save(product);
     }
 
     public VehiclePart get(Integer id) throws Exception {

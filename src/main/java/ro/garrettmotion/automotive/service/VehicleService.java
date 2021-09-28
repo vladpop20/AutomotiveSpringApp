@@ -23,8 +23,7 @@ public class VehicleService {
     }
 
     public Vehicle save(Vehicle product) {
-        vehicleRepository.save(product);
-        return product;
+        return vehicleRepository.save(product);
     }
 
     public Vehicle get(String id) throws Exception {
@@ -38,4 +37,5 @@ public class VehicleService {
     public void delete(String id) {
         vehicleRepository.deleteById(id);
     }
+
 }
