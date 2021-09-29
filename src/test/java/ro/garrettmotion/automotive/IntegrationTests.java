@@ -3,8 +3,6 @@ package ro.garrettmotion.automotive;
 
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
-//import com.jayway.restassured.RestAssured;
-//import com.jayway.restassured.response.Response;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -57,6 +55,7 @@ public class IntegrationTests {
     @Test
     public void basicPingTest() {
         given().when().get("/all").then().statusCode(200);
+//        given().when().get("/vehicles/all").then().statusCode(200);
     }
 
     @Test
@@ -68,39 +67,40 @@ public class IntegrationTests {
         assertEquals(HttpStatus.OK.value(), response.getStatusCode());
     }
 
-    @Test
-    public void whenCreateNewVehicle_thenCreated() {
-        Vehicle vehicle = createRandomVehicle();
-
+//    @Test
+//    public void whenCreateNewVehicle_thenCreated() {
+//        Vehicle vehicle = createRandomVehicle();
+//
+////        Response response = given()
+////            .contentType(MediaType.APPLICATION_JSON_VALUE)
+////            .body(vehicle)
+////            .post(getRootUrl() + "/vehicles/add");
+//
 //        Response response = given()
-//            .contentType(MediaType.APPLICATION_JSON_VALUE)
-//            .body(vehicle)
-//            .post(getRootUrl() + "/vehicles/add");
-
-        Response response = given()
-                .contentType(MediaType.APPLICATION_JSON_VALUE)
-                .body(vehicle)
-                .post("/add");
-
-        assertNotNull(response);
-        assertNotNull(response.getBody());
-        assertEquals(HttpStatus.CREATED.value(), response.getStatusCode());
-    }
-
+//                .contentType(MediaType.APPLICATION_JSON_VALUE)
+//                .body(vehicle)
+//                .post("/add");
+//
+//        assertNotNull(response);
+//        assertNotNull(response.getBody());
+//        assertEquals(HttpStatus.CREATED.value(), response.getStatusCode());
+//    }
 
 
     @Test
     public void whenCreateNewVehicle_thenCreated() {
 
-        Map<String,String> car = new HashMap<>();
+        Map<String, String> car = new HashMap<>();
         car.put("id", "BG-2041Z");
         LocalDate dateOfRegistration = LocalDate.of(1998, 2, 19);
         car.put("dateOfRegistration", dateOfRegistration.toString());
         car.put("plateNumber", "NY-5601");
         car.put("vehicleType", "2");
         given().contentType("application/json").body(car).when().post("/add").then().statusCode(201);
-
-
     }
+
+
+
+
 
 }
