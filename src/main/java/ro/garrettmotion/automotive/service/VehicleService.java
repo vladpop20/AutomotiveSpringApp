@@ -23,6 +23,7 @@ public class VehicleService {
     }
 
     public Vehicle save(Vehicle product) {
+
         return vehicleRepository.save(product);
     }
 

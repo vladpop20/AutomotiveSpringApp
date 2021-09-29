@@ -23,7 +23,7 @@ public class VehicleType {
     }
 
     public VehicleType() {
-
+        super();
     }
 
     public String getName() {

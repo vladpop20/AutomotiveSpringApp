@@ -9,6 +9,11 @@ import java.util.Objects;
 @Table(name = "vehicle")
 @Entity
 public class Vehicle {
+
+    @Transient
+    private Integer vehicleTypeId;
+
+
     @Id
     @Column(name = "vin", nullable = false, length = 17)
     private String id;
@@ -94,5 +99,13 @@ public class Vehicle {
                 ", plateNumber='" + plateNumber + '\'' +
                 ", vehicleType=" + vehicleType +
                 '}';
+    }
+
+    public Integer getVehicleTypeId() {
+        return vehicleTypeId;
+    }
+
+    public void setVehicleTypeId(Integer vehicleTypeId) {
+        this.vehicleTypeId = vehicleTypeId;
     }
 }
