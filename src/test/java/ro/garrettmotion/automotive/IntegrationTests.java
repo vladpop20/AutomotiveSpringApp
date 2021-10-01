@@ -1,6 +1,5 @@
 package ro.garrettmotion.automotive;
 
-
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import org.junit.BeforeClass;
@@ -22,16 +21,9 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 @RunWith(SpringRunner.class)
-//@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
-//        classes = ro.garrettmotion.automotive.AutomotiveApplication.class)
 public class IntegrationTests {
 
-//    @LocalServerPort
-//    private int portOfApp;
-//
-//    private String getRootUrl() {
-//        return "http://localhost:" + portOfApp;
-//    }
+
 
     @BeforeClass
     public static void beforeClass() throws Exception {
@@ -95,7 +87,7 @@ public class IntegrationTests {
         LocalDate dateOfRegistration = LocalDate.of(1998, 2, 19);
         car.put("dateOfRegistration", dateOfRegistration.toString());
         car.put("plateNumber", "NY-5601");
-        car.put("vehicleType", "2");
+        car.put("vehicleTypeID", "2");
         given().contentType("application/json").body(car).when().post("/add").then().statusCode(201);
     }
 

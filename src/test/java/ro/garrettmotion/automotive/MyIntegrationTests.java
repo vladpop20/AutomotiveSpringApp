@@ -43,7 +43,12 @@ public class MyIntegrationTests {
         vehicle.setId("BG-2041Z");
         vehicle.setPlateNumber("NY-5601");
         vehicle.setDateOfRegistration(dateOfRegistration);
+
         vehicle.setVehicleType(new VehicleType("Machines"));
+//        VehicleType vehicleType = new VehicleType("Machines");
+//        vehicleType.setId(1);
+//        vehicle.setVehicleType(vehicleType);
+//        vehicle.setVehicleType(new VehicleType(1));
         return vehicle;
     }
 
@@ -59,14 +64,7 @@ public class MyIntegrationTests {
     }
     @Test
     public void whenCreateNewVehicle_thenCreated() {
-//        Vehicle vehicle = createRandomVehicle();
-
-        Vehicle vehicle = new Vehicle();
-        LocalDate dateOfRegistration = LocalDate.of(1998, 2, 19);
-        vehicle.setId("BG-2041Z");
-        vehicle.setPlateNumber("NY-5601");
-        vehicle.setDateOfRegistration(dateOfRegistration);
-        vehicle.setVehicleType(new VehicleType("Machines"));
+        Vehicle vehicle = createRandomVehicle();
 
         ResponseEntity<Vehicle> postResponse = restTemplate.postForEntity(getRootUrl() + "/vehicles/add", vehicle, Vehicle.class);
 

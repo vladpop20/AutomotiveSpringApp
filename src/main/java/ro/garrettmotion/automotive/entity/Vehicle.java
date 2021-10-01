@@ -10,8 +10,8 @@ import java.util.Objects;
 @Entity
 public class Vehicle {
 
-    @Transient
-    private Integer vehicleTypeId;
+//    @Transient
+//    private Integer vehicleTypeId;
 
 
     @Id
@@ -35,14 +35,23 @@ public class Vehicle {
         this.vehicleType = vehicleType;
     }
 
+//    public Vehicle(String id, String plateNumber, LocalDate dateOfRegistration, @JsonProperty("vehicleType") Integer vehicleType) {
+//        this.id = id;
+//        this.plateNumber = plateNumber;
+//        this.dateOfRegistration = dateOfRegistration;
+//
+//        this.vehicleType = new VehicleType();
+//        this.vehicleType.setId(vehicleType);
+//    }
+
     public Vehicle() {
 
     }
 
-    @JsonProperty("vehicleType")
-    private void unpackNested(Integer vehicleType) {
+    @JsonProperty("vehicleTypeID")
+    private void unpackNested(Integer vehicleTypeID) {
         this.vehicleType = new VehicleType();
-        this.vehicleType.setId(vehicleType);
+        this.vehicleType.setId(vehicleTypeID);
     }
 
     public VehicleType getVehicleType() {
@@ -101,11 +110,13 @@ public class Vehicle {
                 '}';
     }
 
-    public Integer getVehicleTypeId() {
-        return vehicleTypeId;
-    }
+//    public Integer getVehicleTypeId() {
+//        return vehicleTypeId;
+//    }
+//
+//    public void setVehicleTypeId(Integer vehicleTypeId) {
+//        this.vehicleTypeId = vehicleTypeId;
+//    }
 
-    public void setVehicleTypeId(Integer vehicleTypeId) {
-        this.vehicleTypeId = vehicleTypeId;
-    }
+
 }

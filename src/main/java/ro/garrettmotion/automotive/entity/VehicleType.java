@@ -1,6 +1,7 @@
 package ro.garrettmotion.automotive.entity;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
 import java.util.Objects;
@@ -21,6 +22,10 @@ public class VehicleType {
         //this.id = id;
         this.name = name;
     }
+//    @JsonCreator
+//    public VehicleType (Integer vehicleTypeID ) {
+//        this.id = vehicleTypeID;
+//    }
 
     public VehicleType() {
         super();

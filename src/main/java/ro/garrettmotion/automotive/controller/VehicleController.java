@@ -95,7 +95,6 @@ public class VehicleController {
 
     @PutMapping("vehicles/update/{vehicleId}")
     public ResponseEntity<Vehicle> updateVehicle(@PathVariable(name = "vehicleId") String vehicleId, @Valid @RequestBody Vehicle vehicleDetails) throws Exception {
-//        Vehicle vehicle = vehicleService.get(vehicleId).orElseThrow(VehicleNotFoundException);
         Vehicle vehicle = vehicleService.get(vehicleId);
 
         vehicle.setDateOfRegistration(vehicleDetails.getDateOfRegistration());
@@ -103,7 +102,6 @@ public class VehicleController {
         vehicle.setVehicleType(vehicleDetails.getVehicleType());
 
         return new ResponseEntity<>(vehicleService.save(vehicle), HttpStatus.OK);
-
 //        return ResponseEntity.ok(vehicleService.save(vehicle));
     }
 
