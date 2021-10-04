@@ -30,7 +30,7 @@ public class VehiclePart {
 
     }
 
-    @JsonProperty("vehicleType")
+    @JsonProperty("vehicleTypeID")
     private void unpackNested(Integer vehicleType) {
         this.vehicleType = new VehicleType();
         this.vehicleType.setId(vehicleType);
