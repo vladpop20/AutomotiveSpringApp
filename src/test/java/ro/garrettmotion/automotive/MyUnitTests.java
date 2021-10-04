@@ -3,9 +3,13 @@ package ro.garrettmotion.automotive;
 import java.time.LocalDate;
 import java.util.List;
 
+import org.junit.Before;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+import org.mockito.junit.MockitoJUnitRunner;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -26,18 +30,30 @@ import static org.junit.Assert.assertNotNull;
 import static org.assertj.core.api.Assertions.assertThat;
 
 //@ExtendWith(MockitoExtension.class)
-@RunWith(SpringRunner.class)
+//@RunWith(SpringRunner.class)
+@RunWith(MockitoJUnitRunner.class)
 @SpringBootTest(classes = ro.garrettmotion.automotive.AutomotiveApplication.class)
 public class MyUnitTests {
 
-//    @Mock private VehicleRepository vehicleRepository;
-//    private VehicleService vehicleService;
-//
-//    @Mock private VehicleTypeRepository vehicleTypeRepository;
-//    private VehicleTypeService vehicleTypeService;
-//
-//    @Mock private VehiclePartRepository vehiclePartRepository;
-//    private VehiclePartService vehiclePartService;
+    @Mock private VehicleRepository vehicleRepository;
+
+    @Mock private VehicleTypeRepository vehicleTypeRepository;
+
+    @Mock private VehiclePartRepository vehiclePartRepository;
+
+    @InjectMocks
+    @Autowired
+    private VehicleService vehicleService;
+
+    @InjectMocks
+    @Autowired
+    private VehicleTypeService vehicleTypeService;
+
+    @InjectMocks
+    @Autowired
+    private VehiclePartService vehiclePartService;
+
+
 //
 //    @BeforeEach
 //    public void setUp()  {
@@ -46,19 +62,19 @@ public class MyUnitTests {
 //        vehiclePartService = new VehiclePartService(vehiclePartRepository);
 //    }
 
-    @Autowired
-    private VehicleService vehicleService;
-
-    @Autowired
-    private VehicleTypeService vehicleTypeService;
-
-    @Autowired
-    private VehiclePartService vehiclePartService;
+//    @Autowired
+//    private VehicleService vehicleService;
+//
+//    @Autowired
+//    private VehicleTypeService vehicleTypeService;
+//
+//    @Autowired
+//    private VehiclePartService vehiclePartService;
 
     @Test
     public void should_find_all_vehicles() {
         LocalDate dateOfRegistration = LocalDate.of(2010, 3, 10);
-        int sizeBefore = vehicleService.listAll().size();
+//        int sizeBefore = vehicleService.listAll().size();
 
         VehicleType temp1 = vehicleTypeService.save(new VehicleType("Machines"));
         VehicleType temp2 = vehicleTypeService.save(new VehicleType("Replicators"));
@@ -70,7 +86,7 @@ public class MyUnitTests {
 
         List<Vehicle> vehicles = vehicleService.listAll();
 
-        assertThat(vehicles).hasSize(sizeBefore + 3).contains(mk1, mk2, mk3);
+        assertThat(vehicles).hasSize(3).contains(mk1, mk2, mk3);
     }
 
     @Test
@@ -112,7 +128,7 @@ public class MyUnitTests {
         assertThat(vehicle).hasFieldOrPropertyWithValue("id", "SPX-1122");
         assertThat(vehicle).hasFieldOrPropertyWithValue("plateNumber", "VL23CAP");
         assertThat(vehicle).hasFieldOrPropertyWithValue("dateOfRegistration", dateOfRegistration);
-        assertThat(vehicle).hasFieldOrPropertyWithValue("vehicleType", temp);
+        assertThat(vehicle).hasFieldOrPropertyWithValue("vehicleType", temp);           // assertequals
     }
 
     @Test

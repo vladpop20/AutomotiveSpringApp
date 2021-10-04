@@ -36,6 +36,7 @@ public class VehicleService {
     }
 
     public void delete(String id) {
+
         vehicleRepository.deleteById(id);
     }
 

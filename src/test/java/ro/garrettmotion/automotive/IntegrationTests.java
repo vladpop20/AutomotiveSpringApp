@@ -155,7 +155,7 @@ public class IntegrationTests {
         String vehicleTypeName = given().contentType("application/json")
                 .body(carType)
                 .when()
-                .put("vehicletypes/update/4")
+                .put("vehicletypes/update/3")
                 .then()
                 .assertThat()
                 .statusCode(HttpStatus.OK.value())
@@ -174,7 +174,7 @@ public class IntegrationTests {
         String carPartName = given().contentType("application/json")
                 .body(carPart)
                 .when()
-                .put("vehicleparts/update/7")
+                .put("vehicleparts/update/3")
                 .then()
                 .assertThat()
                 .statusCode(HttpStatus.OK.value())
@@ -186,13 +186,17 @@ public class IntegrationTests {
 
 //  -----------------------------------------------------------------------------------------------------------------------------------------
 
-
     @Test
     public void whenDeleteCreatedVehicle_thenOk() {
-        given().pathParam("VIN", "BG-2041Z")
-                .when().delete("/vehicles/delete/{VIN}")
-                .then().statusCode(HttpStatus.OK.value());
+//        given().pathParam("VIN", "BG-2041Z")
+//                .when().delete("/vehicles/delete/{VIN}")
+//                .then().statusCode(HttpStatus.OK.value());
 
+        Response response = RestAssured.delete("/vehicles/delete/9IIIIUUUUTTTTEEEE");
+        assertEquals(HttpStatus.NO_CONTENT.value(), response.getStatusCode());
+
+        response = RestAssured.get("/vehicles/delete/9IIIIUUUUTTTTEEEE");
+        assertEquals(HttpStatus.NOT_FOUND.value(), response.getStatusCode());
     }
 
     @Test
@@ -200,7 +204,6 @@ public class IntegrationTests {
         given().pathParam("vehicleTypeId", 4)
                 .when().delete("/vehicletypes/delete/{vehicleTypeId}")
                 .then().statusCode(HttpStatus.OK.value());
-
     }
 
     @Test
@@ -208,7 +211,6 @@ public class IntegrationTests {
         given().pathParam("vehiclePartId", 7)
                 .when().delete("/vehicleparts/delete/{vehiclePartId}")
                 .then().statusCode(HttpStatus.OK.value());
-
     }
 
 }
