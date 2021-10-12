@@ -13,7 +13,7 @@ public class UserLombokTest {
     public void givenAnnotatedUser_thenHasGettersAndSetters() {
         User user = new User();
         user.setFirstName("Test");
-        assertEquals(user.gerFirstName(), "Test");
+        assertEquals(user.getFirstName(), "Test");
     }
 
     @Getter @Setter
