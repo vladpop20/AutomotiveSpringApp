@@ -44,23 +44,9 @@ public class IntegrationTests {
         return vehicle;
     }
 
-//    @Test
-//    public void whenCreateNewVehicle_thenCreated() {
-//        Vehicle vehicle = createRandomVehicle();
-//
-//        Response response = given()
-//                .contentType(MediaType.APPLICATION_JSON_VALUE)
-//                .body(vehicle)
-//                .post("/add");
-//
-//        assertNotNull(response);
-//        assertNotNull(response.getBody());
-//        assertEquals(HttpStatus.CREATED.value(), response.getStatusCode());
-//    }
 
     @Test
     public void whenGetAllVehicles_thenOk() {
-//        Response response = RestAssured.get(getRootUrl() + "/vehicles/all");
         Response response = RestAssured.get( "/vehicles/all");
 
         assertNotNull(response.getBody());
@@ -102,7 +88,7 @@ public class IntegrationTests {
     @Test
     public void whenCreateNewVehicle_thenCreated() {
         Map<String, String> car = new HashMap<>();
-        car.put("id", "BG-2041Z");
+        car.put("id", "CZ-2041Z");
         LocalDate dateOfRegistration = LocalDate.of(1998, 2, 19);
         car.put("dateOfRegistration", dateOfRegistration.toString());
         car.put("plateNumber", "NY-5601");
@@ -137,7 +123,7 @@ public class IntegrationTests {
         String vehiclePlateNumber = given().contentType("application/json")
                 .body(car)
                 .when()
-                .put("vehicles/update/BG-2041Z")
+                .put("vehicles/update/1AAAABBBBCCCCDDDD")
                 .then()
                 .assertThat()
                 .statusCode(HttpStatus.OK.value())
@@ -192,10 +178,10 @@ public class IntegrationTests {
 //                .when().delete("/vehicles/delete/{VIN}")
 //                .then().statusCode(HttpStatus.OK.value());
 
-        Response response = RestAssured.delete("/vehicles/delete/9IIIIUUUUTTTTEEEE");
+        Response response = RestAssured.delete("/vehicles/delete/BG-2041Z");
         assertEquals(HttpStatus.NO_CONTENT.value(), response.getStatusCode());
 
-        response = RestAssured.get("/vehicles/delete/9IIIIUUUUTTTTEEEE");
+        response = RestAssured.get("/vehicles/delete/BG-2041Z");
         assertEquals(HttpStatus.NOT_FOUND.value(), response.getStatusCode());
     }
 
