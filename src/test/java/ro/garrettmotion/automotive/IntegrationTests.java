@@ -40,7 +40,7 @@ public class IntegrationTests {
         vehicle.setDateOfRegistration(dateOfRegistration);
         VehicleType vehType = new VehicleType("Machines");
         vehType.setId(2);
-        vehicle.setVehicleType(vehType);
+        vehicle.setVehicleTypeID(vehType);
         return vehicle;
     }
 
@@ -178,25 +178,25 @@ public class IntegrationTests {
 //                .when().delete("/vehicles/delete/{VIN}")
 //                .then().statusCode(HttpStatus.OK.value());
 
-        Response response = RestAssured.delete("/vehicles/delete/BG-2041Z");
+        Response response = RestAssured.delete("/vehicles/delete/CZ-2041Z");
         assertEquals(HttpStatus.NO_CONTENT.value(), response.getStatusCode());
 
-        response = RestAssured.get("/vehicles/delete/BG-2041Z");
-        assertEquals(HttpStatus.NOT_FOUND.value(), response.getStatusCode());
+//        response = RestAssured.get("/vehicles/delete/CZ-2041Z");
+//        assertEquals(HttpStatus.NOT_FOUND.value(), response.getStatusCode());
     }
 
     @Test
     public void whenDeleteCreatedVehicleType_thenOk() {
-        given().pathParam("vehicleTypeId", 4)
+        given().pathParam("vehicleTypeId", 3)
                 .when().delete("/vehicletypes/delete/{vehicleTypeId}")
-                .then().statusCode(HttpStatus.OK.value());
+                .then().statusCode(HttpStatus.NO_CONTENT.value());
     }
 
     @Test
     public void whenDeleteCreatedVehiclePart_thenOk() {
-        given().pathParam("vehiclePartId", 7)
+        given().pathParam("vehiclePartId", 4)
                 .when().delete("/vehicleparts/delete/{vehiclePartId}")
-                .then().statusCode(HttpStatus.OK.value());
+                .then().statusCode(HttpStatus.NO_CONTENT.value());
     }
 
 }

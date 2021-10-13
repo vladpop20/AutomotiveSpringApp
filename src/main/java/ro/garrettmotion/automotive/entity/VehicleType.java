@@ -1,11 +1,14 @@
 package ro.garrettmotion.automotive.entity;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-
+import lombok.*;
 import javax.persistence.*;
-import java.util.Objects;
 
+@NoArgsConstructor
+@EqualsAndHashCode
+@ToString
+@Getter
+@Setter
 @Table(name = "vehicle_type")
 @Entity
 public class VehicleType {
@@ -15,56 +18,10 @@ public class VehicleType {
     private Integer id;
 
     @Column(name = "name", length = 45)
-    private String name;
+    private  String name;
 
     @JsonCreator
     public VehicleType(String name) {
-        //this.id = id;
         this.name = name;
-    }
-//    @JsonCreator
-//    public VehicleType (Integer vehicleTypeID ) {
-//        this.id = vehicleTypeID;
-//    }
-
-    public VehicleType() {
-        super();
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof VehicleType)) return false;
-        VehicleType that = (VehicleType) o;
-        return getId().equals(that.getId()) && getName().equals(that.getName());
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(getId(), getName());
-    }
-
-    @Override
-    public String toString() {
-        return "VehicleType{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                '}';
     }
 }

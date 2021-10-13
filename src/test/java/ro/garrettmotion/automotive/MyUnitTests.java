@@ -45,9 +45,9 @@ public class MyUnitTests {
         VehicleType temp2 = vehicleTypeService.save(new VehicleType("Replicators"));
         VehicleType temp3 = vehicleTypeService.save(new VehicleType("Rockets"));
 
-        Vehicle mk1 = vehicleService.save(new Vehicle("Bugatti", "KN-5601", dateOfRegistration.plusMonths(1), temp1));
-        Vehicle mk2 = vehicleService.save(new Vehicle("Lamborghini", "GE-3710", dateOfRegistration.plusMonths(2), temp2));
-        Vehicle mk3 = vehicleService.save(new Vehicle("Peugeot", "NM-9054", dateOfRegistration.plusMonths(3), temp3));
+        Vehicle mk1 = vehicleService.save(new Vehicle("Bugatti", dateOfRegistration.plusMonths(1), "KN-5601", temp1));
+        Vehicle mk2 = vehicleService.save(new Vehicle("Lamborghini", dateOfRegistration.plusMonths(2),"GE-3710", temp2));
+        Vehicle mk3 = vehicleService.save(new Vehicle("Peugeot", dateOfRegistration.plusMonths(3), "NM-9054", temp3));
 
         List<Vehicle> vehicles = vehicleService.listAll();
 
@@ -87,13 +87,13 @@ public class MyUnitTests {
         LocalDate dateOfRegistration = LocalDate.of(2004, 3, 13);
         VehicleType temp = vehicleTypeService.save(new VehicleType("Robots"));
 
-        Vehicle vehicle = vehicleService.save(new Vehicle("SPX-1122", "VL23CAP", dateOfRegistration, temp));
+        Vehicle vehicle = vehicleService.save(new Vehicle("SPX-1122", dateOfRegistration, "VL23CAP", temp));
 
         assertNotNull(vehicle);
         assertThat(vehicle).hasFieldOrPropertyWithValue("id", "SPX-1122");
         assertThat(vehicle).hasFieldOrPropertyWithValue("plateNumber", "VL23CAP");
         assertThat(vehicle).hasFieldOrPropertyWithValue("dateOfRegistration", dateOfRegistration);
-        assertThat(vehicle).hasFieldOrPropertyWithValue("vehicleType", temp);           // assertequals
+        assertThat(vehicle).hasFieldOrPropertyWithValue("vehicleTypeID", temp);           // assertequals
     }
 
     @Test
@@ -114,7 +114,7 @@ public class MyUnitTests {
         assertNotNull(vehiclePart);
         assertThat(vehiclePart).hasFieldOrPropertyWithValue("id", vehiclePart.getId());
         assertThat(vehiclePart).hasFieldOrPropertyWithValue("name", "SunRoof");
-        assertThat(vehiclePart).hasFieldOrPropertyWithValue("vehicleType", temp);
+        assertThat(vehiclePart).hasFieldOrPropertyWithValue("vehicleTypeID", temp);
     }
 
 //-----------------------------------------------------------------------------------------------------------------------------------------
@@ -124,20 +124,20 @@ public class MyUnitTests {
         LocalDate dateOfRegistration = LocalDate.of(2004, 3, 13);
         VehicleType vehicleType = vehicleTypeService.save(new VehicleType("Robots"));
 
-        Vehicle firstVehicle = vehicleService.save(new Vehicle("SPX-1122", "VL23CAP", dateOfRegistration, vehicleType));
-        Vehicle secondVehicle = new Vehicle("SPX-1122", "B999GRE", dateOfRegistration.plusMonths(5), vehicleType);
+        Vehicle firstVehicle = vehicleService.save(new Vehicle("SPX-1122", dateOfRegistration, "VL23CAP", vehicleType));
+        Vehicle secondVehicle = new Vehicle("SPX-1122", dateOfRegistration.plusMonths(5), "B999GRE", vehicleType);
 
         Vehicle firstVehUpdated = vehicleService.get(firstVehicle.getId());
         firstVehUpdated.setPlateNumber(secondVehicle.getPlateNumber());
         firstVehUpdated.setDateOfRegistration(secondVehicle.getDateOfRegistration());
-        firstVehUpdated.setVehicleType(secondVehicle.getVehicleType());
+        firstVehUpdated.setVehicleTypeID(secondVehicle.getVehicleTypeID());
         vehicleService.save(firstVehUpdated);
 
         Vehicle checkVeh = vehicleService.get(firstVehicle.getId());
 
         assertThat(checkVeh.getPlateNumber()).isNotNull().isEqualTo(secondVehicle.getPlateNumber());
         assertThat(checkVeh.getDateOfRegistration()).isNotNull().isEqualTo(secondVehicle.getDateOfRegistration());
-        assertThat(checkVeh.getVehicleType()).isNotNull().isEqualTo(secondVehicle.getVehicleType());
+        assertThat(checkVeh.getVehicleTypeID()).isNotNull().isEqualTo(secondVehicle.getVehicleTypeID());
     }
 
     @Test
@@ -163,13 +163,13 @@ public class MyUnitTests {
 
         VehiclePart firstUpdated = vehiclePartService.get(firstVehPt.getId());
         firstUpdated.setName(secVehPt.getName());
-        firstUpdated.setVehicleType(secVehPt.getVehicleType());
+        firstUpdated.setVehicleTypeID(secVehPt.getVehicleTypeID());
         vehiclePartService.save(firstUpdated);
 
         VehiclePart checkPt = vehiclePartService.get(firstVehPt.getId());
 
         assertThat(checkPt.getName()).isNotNull().isEqualTo(secVehPt.getName());
-        assertThat(checkPt.getVehicleType()).isNotNull().isEqualTo(secVehPt.getVehicleType());
+        assertThat(checkPt.getVehicleTypeID()).isNotNull().isEqualTo(secVehPt.getVehicleTypeID());
     }
 
 //-----------------------------------------------------------------------------------------------------------------------------------------
@@ -183,9 +183,9 @@ public class MyUnitTests {
         VehicleType vehType2 = vehicleTypeService.save(new VehicleType("Replicators"));
 
 
-        Vehicle mk1 = vehicleService.save(new Vehicle("Tesla", "NY-4501", dateOfRegistration, vehType1));
-        Vehicle mk2 = vehicleService.save(new Vehicle("Audi", "LA-1010", dateOfRegistration.plusMonths(2), vehType1));
-        Vehicle mk3 = vehicleService.save(new Vehicle("VW", "TX-4554", dateOfRegistration.plusMonths(3), vehType2));
+        Vehicle mk1 = vehicleService.save(new Vehicle("Tesla", dateOfRegistration, "NY-4501", vehType1));
+        Vehicle mk2 = vehicleService.save(new Vehicle("Audi", dateOfRegistration.plusMonths(2), "LA-1010", vehType1));
+        Vehicle mk3 = vehicleService.save(new Vehicle("VW", dateOfRegistration.plusMonths(3), "TX-4554", vehType2));
 
         vehicleService.delete(mk2.getId());
 

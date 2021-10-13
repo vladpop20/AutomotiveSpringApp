@@ -99,7 +99,7 @@ public class VehicleController {
 
         vehicle.setDateOfRegistration(vehicleDetails.getDateOfRegistration());
         vehicle.setPlateNumber(vehicleDetails.getPlateNumber());
-        vehicle.setVehicleType(vehicleDetails.getVehicleType());
+        vehicle.setVehicleTypeID(vehicleDetails.getVehicleTypeID());
 
         return new ResponseEntity<>(vehicleService.save(vehicle), HttpStatus.OK);
 //        return ResponseEntity.ok(vehicleService.save(vehicle));
@@ -119,7 +119,7 @@ public class VehicleController {
         VehiclePart vehiclePart = vehiclePartService.get(vehiclePartId);
 
         vehiclePart.setName(vehiclePartDetails.getName());
-        vehiclePart.setVehicleType(vehiclePartDetails.getVehicleType());
+        vehiclePart.setVehicleTypeID(vehiclePartDetails.getVehicleTypeID());
 
         return new ResponseEntity<>(vehiclePartService.save(vehiclePart), HttpStatus.OK);
     }
