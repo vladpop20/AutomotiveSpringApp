@@ -1,6 +1,12 @@
 package ro.garrettmotion.automotive.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import org.springframework.data.domain.Page;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ro.garrettmotion.automotive.entity.Vehicle;
@@ -58,19 +64,31 @@ public class VehicleController {
         return new ResponseEntity<>(listVehicleParts, HttpStatus.OK);
     }
 
+    @GetMapping("vehicles/json")
+    public ResponseEntity<String> getVehiclesAsJson() throws JsonProcessingException {
+        List<Vehicle> listVehicles = vehicleService.listAll();
+
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.registerModule(new JavaTimeModule());
+        String vehiclesAsString = mapper.writeValueAsString(listVehicles);
+
+        return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION, "attachment;filename=customers.json")
+                .contentType(MediaType.APPLICATION_JSON)
+                .contentLength(vehiclesAsString.length())
+                .body(vehiclesAsString);
+    }
+
+    @GetMapping("vehicles/sort")
+    public ResponseEntity<Page<Vehicle>> getVehiclesByVehicleTypeSortedDescByVin() throws Exception {
+        Page<Vehicle> vehicles = vehicleService.getVehicleByVin(2, 0, 3);
+
+        return new ResponseEntity<>(vehicles, HttpStatus.OK);
+    }
+
+
 //----------------------------------------------------------------------------------------------------------------------
 //   Creates new records on DB
 
-//    @PostMapping("vehicles/add")
-//    public ResponseEntity<Vehicle> createVehicle(@Valid @RequestBody Vehicle vehicle) {
-//        try {
-//            Vehicle _vehicle = vehicleService
-//                    .save(new Vehicle(vehicle.getId(), vehicle.getPlateNumber(), vehicle.getDateOfRegistration(), vehicle.getVehicleType()));
-//            return new ResponseEntity<>(_vehicle, HttpStatus.CREATED);
-//        } catch (Exception e) {
-//            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-//        }
-//    }
 
     @PostMapping("vehicles/add")
     @ResponseStatus(HttpStatus.CREATED)
@@ -102,7 +120,6 @@ public class VehicleController {
         vehicle.setVehicleTypeID(vehicleDetails.getVehicleTypeID());
 
         return new ResponseEntity<>(vehicleService.save(vehicle), HttpStatus.OK);
-//        return ResponseEntity.ok(vehicleService.save(vehicle));
     }
 
     @PutMapping("vehicletypes/update/{vehicleTypeId}")
