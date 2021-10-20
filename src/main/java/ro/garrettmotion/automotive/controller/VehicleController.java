@@ -63,7 +63,8 @@ public class VehicleController {
 
         return new ResponseEntity<>(listVehicleParts, HttpStatus.OK);
     }
-
+//***********************************************************************************************************************
+//  Second improvement: create new endpoint that generates a text file which contains a json string (created with Jackson library)
     @GetMapping("vehicles/json")
     public ResponseEntity<String> getVehiclesAsJson() throws JsonProcessingException {
         List<Vehicle> listVehicles = vehicleService.listAll();
@@ -72,21 +73,19 @@ public class VehicleController {
         mapper.registerModule(new JavaTimeModule());
         String vehiclesAsString = mapper.writeValueAsString(listVehicles);
 
-        return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION, "attachment;filename=customers.json")
+        return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION, "attachment;filename=vehicles.json")
                 .contentType(MediaType.APPLICATION_JSON)
                 .contentLength(vehiclesAsString.length())
                 .body(vehiclesAsString);
     }
-
+//  Last improvement: create a hql query which will return the values in a paginated way ordered by IDs descending.
     @GetMapping("vehicles/sort")
     public ResponseEntity<Page<Vehicle>> getVehiclesByVehicleTypeSortedDescByVin() throws Exception {
         Page<Vehicle> vehicles = vehicleService.getVehicleByVin(2, 0, 3);
 
         return new ResponseEntity<>(vehicles, HttpStatus.OK);
     }
-
-
-//----------------------------------------------------------------------------------------------------------------------
+//***********************************************************************************************************************
 //   Creates new records on DB
 
 
