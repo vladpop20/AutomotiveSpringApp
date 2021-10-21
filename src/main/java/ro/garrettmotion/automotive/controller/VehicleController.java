@@ -80,7 +80,7 @@ public class VehicleController {
     }
 //  Last improvement: create a hql query which will return the values in a paginated way ordered by IDs descending.
     @GetMapping("vehicles/sort")
-    public ResponseEntity<Page<Vehicle>> getVehiclesByVehicleTypeSortedDescByVin() throws Exception {
+    public ResponseEntity<Page<Vehicle>> getVehiclesByVehicleTypeSortedDescByVin() {
         Page<Vehicle> vehicles = vehicleService.getVehicleByVin(2, 0, 3);
 
         return new ResponseEntity<>(vehicles, HttpStatus.OK);
