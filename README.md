@@ -1,7 +1,7 @@
 # AutomotiveSpringApp
 
 
-Implemented a small JAVA project for maintaining an entity records in db. It's using Sring Boot and Hibernate for connectig to a database.
+Implemented a small JAVA project for maintaining an entity records in db. It's using Sring Boot and Hibernate for connectig to a Microsoft SQL Server database.
 Database schema contains these 3 entities:
 - 'Vehicle' with attributes 'VIN' as vehicle identification number, 'DateOfRefistration', and with linkage to Vehicle Type;
 - only one single type can be linked;
