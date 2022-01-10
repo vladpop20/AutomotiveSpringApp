@@ -44,21 +44,21 @@ public class VehicleController {
 //   Retrive all individual record from DB
 
     @GetMapping("vehicles/all")
-    public ResponseEntity<List<Vehicle>> getAllVehicles() {
+    public ResponseEntity<?> getAllVehicles() {
         List<Vehicle> listVehicles = vehicleService.listAll();
 
         return new ResponseEntity<>(listVehicles, HttpStatus.OK);
     }
 
     @GetMapping("vehicletypes/all")
-    public ResponseEntity<List<VehicleType>> getAllVehicleType() {
+    public ResponseEntity<?> getAllVehicleType() {
         List<VehicleType> listVehicleTypes = vehicleTypeService.listAll();
 
         return new ResponseEntity<>(listVehicleTypes, HttpStatus.OK);
     }
 
     @GetMapping("vehicleparts/all")
-    public ResponseEntity<List<VehiclePart>> getAllVehicleParts() {
+    public ResponseEntity<?> getAllVehicleParts() {
         List<VehiclePart> listVehicleParts = vehiclePartService.listAll();
 
         return new ResponseEntity<>(listVehicleParts, HttpStatus.OK);
@@ -66,7 +66,7 @@ public class VehicleController {
 //***********************************************************************************************************************
 //  Second improvement: create new endpoint that generates a text file which contains a json string (created with Jackson library)
     @GetMapping("vehicles/json")
-    public ResponseEntity<String> getVehiclesAsJson() throws JsonProcessingException {
+    public ResponseEntity<?> getVehiclesAsJson() throws JsonProcessingException {
         List<Vehicle> listVehicles = vehicleService.listAll();
 
         ObjectMapper mapper = new ObjectMapper();
@@ -80,7 +80,7 @@ public class VehicleController {
     }
 //  Last improvement: create a hql query which will return the values in a paginated way ordered by IDs descending.
     @GetMapping("vehicles/sort")
-    public ResponseEntity<Page<Vehicle>> getVehiclesByVehicleTypeSortedDescByVin() {
+    public ResponseEntity<?> getVehiclesByVehicleTypeSortedDescByVin() {
         Page<Vehicle> vehicles = vehicleService.getVehicleByVin(2, 0, 3);
 
         return new ResponseEntity<>(vehicles, HttpStatus.OK);
@@ -111,7 +111,7 @@ public class VehicleController {
 //  Updates one record at a time from DB
 
     @PutMapping("vehicles/update/{vehicleId}")
-    public ResponseEntity<Vehicle> updateVehicle(@PathVariable(name = "vehicleId") String vehicleId, @Valid @RequestBody Vehicle vehicleDetails) throws Exception {
+    public ResponseEntity<?> updateVehicle(@PathVariable(name = "vehicleId") String vehicleId, @Valid @RequestBody Vehicle vehicleDetails) throws Exception {
         Vehicle vehicle = vehicleService.get(vehicleId);
 
         vehicle.setDateOfRegistration(vehicleDetails.getDateOfRegistration());
@@ -122,7 +122,7 @@ public class VehicleController {
     }
 
     @PutMapping("vehicletypes/update/{vehicleTypeId}")
-    public ResponseEntity<VehicleType> updateVehicleType(@PathVariable(name = "vehicleTypeId") int vehicleTypeId, @Valid @RequestBody VehicleType vehicleTypeDetails) throws Exception {
+    public ResponseEntity<?> updateVehicleType(@PathVariable(name = "vehicleTypeId") int vehicleTypeId, @Valid @RequestBody VehicleType vehicleTypeDetails) throws Exception {
         VehicleType vehicleType = vehicleTypeService.get(vehicleTypeId);
 
         vehicleType.setName(vehicleTypeDetails.getName());
@@ -131,7 +131,7 @@ public class VehicleController {
     }
 
     @PutMapping("vehicleparts/update/{vehiclePartId}")
-    public ResponseEntity<VehiclePart> updateVehiclePart(@PathVariable(name = "vehiclePartId") int vehiclePartId, @Valid @RequestBody VehiclePart vehiclePartDetails) throws Exception {
+    public ResponseEntity<?> updateVehiclePart(@PathVariable(name = "vehiclePartId") int vehiclePartId, @Valid @RequestBody VehiclePart vehiclePartDetails) throws Exception {
         VehiclePart vehiclePart = vehiclePartService.get(vehiclePartId);
 
         vehiclePart.setName(vehiclePartDetails.getName());
@@ -144,7 +144,7 @@ public class VehicleController {
 //  Deletes one record at a time from DB
 
     @DeleteMapping("vehicles/delete/{vehicleId}")
-    public ResponseEntity<HttpStatus> deleteVehicle(@PathVariable(name = "vehicleId") String vehicleId) {
+    public ResponseEntity<?> deleteVehicle(@PathVariable(name = "vehicleId") String vehicleId) {
         try {
             vehicleService.delete(vehicleId);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -154,7 +154,7 @@ public class VehicleController {
     }
 
     @DeleteMapping("vehicletypes/delete/{vehicleTypeId}")
-    public ResponseEntity<HttpStatus> deleteVehicleType(@PathVariable(name = "vehicleTypeId") int vehicleTypeId) {
+    public ResponseEntity<?> deleteVehicleType(@PathVariable(name = "vehicleTypeId") int vehicleTypeId) {
         try {
             vehicleTypeService.delete(vehicleTypeId);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -164,7 +164,7 @@ public class VehicleController {
     }
 
     @DeleteMapping("vehicleparts/delete/{vehiclePartId}")
-    public ResponseEntity<HttpStatus> deleteVehiclePart(@PathVariable(name = "vehiclePartId") int vehiclePartId) {
+    public ResponseEntity<?> deleteVehiclePart(@PathVariable(name = "vehiclePartId") int vehiclePartId) {
         try {
             vehiclePartService.delete(vehiclePartId);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -177,7 +177,7 @@ public class VehicleController {
 //    Get arguments by ID
 
     @GetMapping("vehicles/get/{vehicleId}")
-    public ResponseEntity<Vehicle> getVehicleById(@PathVariable(name = "vehicleId") String vehicleId) throws Exception {
+    public ResponseEntity<?> getVehicleById(@PathVariable(name = "vehicleId") String vehicleId) throws Exception {
         try {
             Vehicle vehicle = vehicleService.get(vehicleId);
             return new ResponseEntity<>(vehicle, HttpStatus.OK);
@@ -187,7 +187,7 @@ public class VehicleController {
     }
 
     @GetMapping("vehicletypes/get/{vehicleTypeId}")
-    public ResponseEntity<VehicleType> getVehicleTypeById(@PathVariable(name = "vehicleTypeId") Integer vehicleTypeId) throws Exception {
+    public ResponseEntity<?> getVehicleTypeById(@PathVariable(name = "vehicleTypeId") Integer vehicleTypeId) throws Exception {
         try {
             VehicleType vehicleType = vehicleTypeService.get(vehicleTypeId);
             return new ResponseEntity<>(vehicleType, HttpStatus.OK);
@@ -197,7 +197,7 @@ public class VehicleController {
     }
 
     @GetMapping("vehicleparts/get/{vehiclePartId}")
-    public ResponseEntity<VehiclePart> getVehiclePartById(@PathVariable(name = "vehiclePartId") Integer vehiclePartId) throws Exception {
+    public ResponseEntity<?> getVehiclePartById(@PathVariable(name = "vehiclePartId") Integer vehiclePartId) throws Exception {
         try {
             VehiclePart vehiclePart = vehiclePartService.get(vehiclePartId);
             return new ResponseEntity<>(vehiclePart, HttpStatus.OK);
